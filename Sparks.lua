@@ -40,7 +40,6 @@ windower.register_event('addon command', function(...)
 			pkt = validate(item)
 			if pkt then
 				busy = true
-				print(pkt['Target'].."-"..pkt['Target Index'])
 				poke_npc(pkt['Target'],pkt['Target Index'])
 			else 
 				windower.add_to_chat(2,"Can't find item in menu")
@@ -49,6 +48,8 @@ windower.register_event('addon command', function(...)
 			windower.add_to_chat(2,"Still buying last item")
 		end
 	elseif cmd == 'find' then
+		table.vprint(fetch_db(item))
+	elseif cmd == 'fetch' then
 		table.vprint(fetch_db(item))
 	end
 end)
@@ -87,6 +88,7 @@ function validate(item)
 end
 
 function fetch_db(item)
+print(item)
  for i,v in pairs(db) do
   if string.lower(v.Name) == string.lower(item) then
 	return v
@@ -94,27 +96,25 @@ function fetch_db(item)
  end
 end
 
+windower.register_event('outgoing chunk',function(id,data,modified,injected,blocked)
+if id == 0x05B then
+	local p = packets.parse("outgoing",data)
+end
+end)
 
 windower.register_event('incoming chunk',function(id,data,modified,injected,blocked)
 	if id == 0x034 or id == 0x032 then
 	 if busy == true and pkt then
 		local packet = packets.new('outgoing', 0x05B)
 		packet["Target"]=pkt['Target']
-		print(pkt['Target'])
 		packet["Option Index"]=pkt['Option Index']
-		print(pkt['Option Index'])
 		packet["_unknown1"]=pkt['_unknown1']
-		print(pkt['_unknown1'])
 		packet["Target Index"]=pkt['Target Index']
-		print(pkt['Target Index'])
 		packet["Automated Message"]=false
 		packet["_unknown2"]=0
 		packet["Zone"]=pkt['Zone']
-		print(pkt['Zone'])
 		packet["Menu ID"]=pkt['Menu ID']
-		print(pkt['Menu ID'])
 		packets.inject(packet)
-		print("sent")
 		local packet = packets.new('outgoing', 0x016, {
 		["Target Index"]=pkt['me'],
 		})
