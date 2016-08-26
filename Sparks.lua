@@ -20,7 +20,8 @@ valid_zones = {
 	[256] = {npc="Eternal Flame", menu=5081}, -- Western Adoulin
 	[230] = {npc="Rolandienne", menu=995}, -- Southern San d'Oria
 	[235] = {npc="Isakoth", menu=26}, -- Bastok Markets
-	[241] = {npc="Fhelm Jobeizat", menu=850}} -- Windurst Woods
+	[241] = {npc="Fhelm Jobeizat", menu=850}, -- Windurst Woods
+	[104] = {npc="Ardrick",menu=61}} -- Jugner Forrest
 	
 
 defaults = {}
@@ -88,7 +89,6 @@ function validate(item)
 end
 
 function fetch_db(item)
-print(item)
  for i,v in pairs(db) do
   if string.lower(v.Name) == string.lower(item) then
 	return v
@@ -99,6 +99,7 @@ end
 windower.register_event('outgoing chunk',function(id,data,modified,injected,blocked)
 if id == 0x05B then
 	local p = packets.parse("outgoing",data)
+--	print(p)
 end
 end)
 

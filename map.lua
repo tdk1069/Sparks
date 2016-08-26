@@ -1,4 +1,10 @@
 	return {
+		-- Displacers
+		[3853]	= {Name = "Phase Displacer",Cost=1000,Option=1,Index=1, Zone=104},
+		[38532]	= {Name = "Phase Displacer x2",Cost=1000,Option=1,Index=2, Zone=104},
+		[38533]	= {Name = "Phase Displacer x3",Cost=1000,Option=1,Index=3, Zone=104},
+		[38534]	= {Name = "Phase Displacer x4",Cost=1000,Option=1,Index=4, Zone=104},
+		[38535]	= {Name = "Phase Displacer x5",Cost=1000,Option=1,Index=5, Zone=104},
         -- Items 
         [4181] = {Name="Instant warp", Cost=10, Option=1, Index=0},
         [4182] = {Name="Instant reraise", Cost=10, Option=1, Index=1},
